@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.4</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.xdclass</groupId>
+    <artifactId>jmeterdemo</artifactId>
+    <version>0.0.2-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>jmeterdemo</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--(type=Not Found, status=404).
+        出现这种情况的原因在于：没有使用模版。
+        即@Controller 用来响应页面，@Controller必须配合模版来使用。
+        spring-boot 支持多种模版引擎包括-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+        <dependency>
+            <!--热部署-->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- tomcat自带jdbc连接池 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <!--provided是没有传递性的，有继承性
+            provided作用在编译和测试，打包运行时依赖不起作用，不会随着项目一期打包
+            -->
+            <!-- <scope>provided</scope> -->
+        </dependency>
+
+        <!--Mysql、spring data jpa 的使用，其中 Mysql 就不用说了大家很熟悉。
+        Jpa 是利用 Hibernate 生成各种自动化的 sql，如果只是简单的增删改查，
+        基本上不用手写了，Spring 内部已经帮大家封装实现了。-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!--Swagger是一款Restful接口的文档在线自动生成和功能测试功能软件。-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <!--war访问的项目名称-->
+        <finalName>jmeterdemo</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--配置了true后在修改java文件后也就支持了热启动，
+                不过这种方式是属于项目重启（速度比较快的项目重启），
+                会清空session中的值，也就是如果有用户登陆的话，项目重启后需要重新登陆。
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
+                -->
+            </plugin>
+
+            <!--不修改版本在spring boot2.4.4版本maven打包时候执行resource周期是报错-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.4.3</version>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+</project>
